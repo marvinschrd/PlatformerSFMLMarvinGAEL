@@ -24,4 +24,19 @@ struct ContactData
 	ContactDataType contactDataType;
 };
 
+enum class GameObjectType
+{
+	PLAYER_CHARACTER,
+	PLATFORM
+};
+
+class GameObject
+{
+public:
+	GameObjectType GetGameObjectType() const { return gameObjectType_; };
+protected:
+	GameObjectType gameObjectType_;
+
+};
+
 #endif
