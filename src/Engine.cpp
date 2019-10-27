@@ -7,7 +7,7 @@
 #include "Platform.h"
 
 
-Engine::Engine()
+Engine::Engine() : platformListener_(this)
 {
 }
 
@@ -19,13 +19,15 @@ void Engine::loop()
 	
 
 	b2World world(b2Vec2(0.0f, 9.81f));
-
+	world.SetContactListener(&platformListener_);
+	
 	playerCharacter_.init(world);
 	platform_.Init(world);
 	
-
+	sf::Clock clock;
 	while (window.isOpen())
 	{
+		sf::Time deltaTime = clock.restart();
 		// on inspecte tous les évènements de la fenêtre qui ont été émis depuis la précédente itération
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -34,13 +36,51 @@ void Engine::loop()
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
+		playerCharacter_.Update(deltaTime.asSeconds());
+		world.Step(deltaTime.asSeconds(), velocityIterations, positionIterations);
 		window.clear(sf::Color::Black);
 		// c'est ici qu'on dessine tout
 		// window.draw(...);
-		//background_.DrawBackground(window);
-		//platform_.DrawPlatform(window);
+		background_.DrawBackground(window);
+		platform_.DrawPlatform(window);
 		playerCharacter_.DrawPlayer(window);
 		// fin de la frame courante, affichage de tout ce qu'on a dessiné
 		window.display();
 	}
+}
+
+void Engine::OnContactEnter(b2Fixture* c1, b2Fixture* c2)
+{
+	GameObject* g1 = (GameObject*)(c1->GetUserData());
+	GameObject* g2 = (GameObject*)(c2->GetUserData());
+	if (g1->GetGameObjectType() == GameObjectType::PLAYER_CHARACTER ||
+		g2->GetGameObjectType() == GameObjectType::PLATFORM)
+	{
+		playerCharacter_.OnContactBegin();
+	}
+}
+
+void Engine::OnContactExit(b2Fixture* c1, b2Fixture* c2)
+{
+	GameObject* g1 = (GameObject*)(c1->GetUserData());
+	GameObject* g2 = (GameObject*)(c2->GetUserData());
+	if (g1->GetGameObjectType() == GameObjectType::PLAYER_CHARACTER ||
+		g2->GetGameObjectType() == GameObjectType::PLATFORM)
+	{
+		playerCharacter_.OnContactEnd();
+	}
+}
+
+PlatformContactListener::PlatformContactListener(Engine* engine) : engine_(engine)
+{
+}
+
+void PlatformContactListener::BeginContact(b2Contact* contact)
+{
+	engine_->OnContactEnter(contact->GetFixtureA(), contact->GetFixtureB());
+}
+
+void PlatformContactListener::EndContact(b2Contact* contact)
+{
+	engine_->OnContactExit(contact->GetFixtureA(), contact->GetFixtureB());
 }

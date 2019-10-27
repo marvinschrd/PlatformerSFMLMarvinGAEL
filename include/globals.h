@@ -12,8 +12,8 @@ using meter = float;
 using pixel = float;
 
 //For b2World step
-//const int velocityIterations = 8;
-//const int positionIterations = 8;
+const int velocityIterations = 8;
+const int positionIterations = 8;
 
 
 meter pixel2meter(pixel pixel);

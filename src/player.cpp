@@ -7,7 +7,7 @@
 
 player::player()// ouvre le fichier image qui represente le personnage
 {
-	if (!playerTexture_.loadFromFile("data/cat.png"))
+	if (!playerTexture_.loadFromFile("data/idle.gif"))
 	{
 		std::cerr << "[Error] Could not load hero texture\n";
 	}
@@ -45,12 +45,63 @@ void player::init(b2World& world)
 	playerBody_->CreateFixture(&fixtureDef);
 }
 
+//PAS FAIT PAR MOI
+
+void player::Update(float dt)
+{
+	float jump = playerBody_->GetLinearVelocity().y;
+	bool jumpButton = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
+	if (jumpButton && !previousJumpButton_ && contactNmb_ > 0)
+	{
+		
+		jump = jumpVelocity_;
+	}
+
+	float move = 0.0f;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	{
+		if (!playerTexture_.loadFromFile("data/idle2.png"))
+		{
+			std::cerr << "[Error] Could not load hero texture\n";
+		}
+		playerSprite_.setTexture(playerTexture_);
+		move -= 1.0f;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	{
+		if (!playerTexture_.loadFromFile("data/idle.gif"))
+		{
+			std::cerr << "[Error] Could not load hero texture\n";
+		}
+		playerSprite_.setTexture(playerTexture_);
+		move += 1.0f;
+	}
+
+	const float deltaVx = move * pixel2meter(playerSpeed_) - playerBody_->GetLinearVelocity().x;
+	const float fx = movementFactor_ * playerBody_->GetMass() * deltaVx / dt;
+
+	const float deltaVy = jump - playerBody_->GetLinearVelocity().y;
+	const float fy = playerBody_->GetMass() * deltaVy / dt;
+	playerBody_->ApplyForce(b2Vec2(fx, fy), playerBody_->GetWorldCenter(), true);
+
+	previousJumpButton_ = jumpButton;
+}
+
+
 void player::DrawPlayer(sf::RenderWindow& window)
 {
 	playerPosition_ = meter2pixel(playerBody_->GetPosition());
 	playerSprite_.setPosition(playerPosition_);
 	boxRectDebug_.setPosition(meter2pixel(playerBody_->GetPosition()));
 	window.draw(playerSprite_);
-	window.draw(boxRectDebug_);
+	//window.draw(boxRectDebug_);
 }
 
+void player::OnContactBegin()
+{
+	contactNmb_++;
+}
+void player::OnContactEnd()
+{
+	contactNmb_--;
+}
