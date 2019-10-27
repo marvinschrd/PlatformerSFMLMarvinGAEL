@@ -9,6 +9,7 @@ public:
 	Engine();
 	void loop();
 private:
+	Engine* engine_ = nullptr;
 	player playerCharacter_;
 	Background background_;
 	Platform platform_;

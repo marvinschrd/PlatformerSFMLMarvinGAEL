@@ -14,5 +14,6 @@ private:
 	sf::Sprite platformSprite_;
 	std::vector<sf::Sprite> platformsSprite1;
 	std::vector<sf::Sprite> platformsSprite2;
+	std::vector<sf::Sprite> platformsSprite3;
 	
 };

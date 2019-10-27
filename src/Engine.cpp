@@ -20,7 +20,7 @@ void Engine::loop()
 
 	b2World world(b2Vec2(0.0f, 9.81f));
 
-	
+	playerCharacter_.init(world);
 	platform_.Init(world);
 	
 
@@ -37,8 +37,8 @@ void Engine::loop()
 		window.clear(sf::Color::Black);
 		// c'est ici qu'on dessine tout
 		// window.draw(...);
-		background_.DrawBackground(window);
-		platform_.DrawPlatform(window);
+		//background_.DrawBackground(window);
+		//platform_.DrawPlatform(window);
 		playerCharacter_.DrawPlayer(window);
 		// fin de la frame courante, affichage de tout ce qu'on a dessiné
 		window.display();

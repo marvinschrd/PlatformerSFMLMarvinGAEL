@@ -19,7 +19,7 @@ Platform::Platform()
 void Platform::Init(b2World& world)
 {
 	//platform1
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		platformsSprite1.push_back(platformSprite_);
 	}
@@ -32,7 +32,15 @@ void Platform::Init(b2World& world)
 		platformsSprite2.push_back(platformSprite_);
 	}
 	for (int i = 0; i < platformsSprite2.size(); i++) {
-		platformsSprite2[i].setPosition(40.0f + (i * 40.0f), 250.0f);
+		platformsSprite2[i].setPosition(600.0f + (i * 40.0f), 250.0f);
+	}
+	//platform3
+	for (int i = 0; i < 7; i++)
+	{
+		platformsSprite3.push_back(platformSprite_);
+	}
+	for (int i = 0; i < platformsSprite3.size(); i++) {
+		platformsSprite3[i].setPosition(150.0f + (i * 40.0f), 400.0f);
 	}
 	
 	
@@ -49,6 +57,10 @@ void Platform::DrawPlatform(sf::RenderWindow& window)
 	for (int i = 0; i < platformsSprite2.size(); i++)
 	{
 		window.draw(platformsSprite2[i]);
+	}
+	for (int i = 0; i < platformsSprite3.size(); i++)
+	{
+		window.draw(platformsSprite3[i]);
 	}
 	
 	

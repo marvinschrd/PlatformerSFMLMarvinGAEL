@@ -7,14 +7,14 @@
 
 Background::Background()
 {
-	if (!backgroundTexture_.loadFromFile("data/back.png"))
+	if (!backGroundTexture_.loadFromFile("data/back.png"))
 	{
 		std::cerr << "[Error] Could not load hero texture\n";
 	}
-	backgroundSprite_.setTexture(backgroundTexture_);
+	backGroundSprite_.setTexture(backGroundTexture_);
 }
 
 void Background::DrawBackground(sf::RenderWindow& window)
 {
-	window.draw(backgroundSprite_);
+	window.draw(backGroundSprite_);
 }
