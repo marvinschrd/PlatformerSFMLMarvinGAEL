@@ -7,7 +7,7 @@
 
 player::player()// ouvre le fichier image qui represente le personnage
 {
-	if (!playerTexture_.loadFromFile("data/idle.gif"))
+	if (!playerTexture_.loadFromFile("data/idle.png"))
 	{
 		std::cerr << "[Error] Could not load hero texture\n";
 	}
@@ -57,6 +57,12 @@ void player::Update(float dt)
 		jump = jumpVelocity_;
 	}
 
+	if (!playerTexture_.loadFromFile("data/idle.png"))
+	{
+		std::cerr << "[Error] Could not load hero texture\n";
+	}
+	playerSprite_.setTexture(playerTexture_);
+	
 	float move = 0.0f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
@@ -67,14 +73,16 @@ void player::Update(float dt)
 		playerSprite_.setTexture(playerTexture_);
 		move -= 1.0f;
 	}
+	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		if (!playerTexture_.loadFromFile("data/idle.gif"))
+		if (!playerTexture_.loadFromFile("data/idle.png"))
 		{
 			std::cerr << "[Error] Could not load hero texture\n";
 		}
 		playerSprite_.setTexture(playerTexture_);
 		move += 1.0f;
+		
 	}
 
 	const float deltaVx = move * pixel2meter(playerSpeed_) - playerBody_->GetLinearVelocity().x;

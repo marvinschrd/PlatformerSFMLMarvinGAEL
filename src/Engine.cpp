@@ -42,6 +42,7 @@ void Engine::loop()
 		// c'est ici qu'on dessine tout
 		// window.draw(...);
 		background_.DrawBackground(window);
+		background_.DrawHeart(window);
 		platform_.DrawPlatform(window);
 		playerCharacter_.DrawPlayer(window);
 		// fin de la frame courante, affichage de tout ce qu'on a dessiné

@@ -7,11 +7,11 @@
 Platform::Platform() 
 {
 	gameObjectType_ = GameObjectType::PLATFORM;
-	if (!platformTexture_.loadFromFile("data/Grass.png"))
+	/*if (!platformTexture_.loadFromFile("data/Grass.png"))
 	{
 		std::cerr << "[Error] Could not load hero texture\n";
 	}
-	platformSprite_.setTexture(platformTexture_);
+	platformSprite_.setTexture(platformTexture_);*/
 
 	
 }
@@ -19,15 +19,23 @@ Platform::Platform()
 void Platform::Init(b2World& world)
 {
 	//platform1
-	for (int i = 0; i < 4; i++)
+
+	/*if (!platformTexture_.loadFromFile("data/platformFull1.png"))
+	{
+		std::cerr << "[Error] Could not load hero texture\n";
+	}
+	platformSprite_.setTexture(platformTexture_);
+
+	platformSprite_.setPosition(20, 200);*/
+	
+	/*for (int i = 0; i < 4; i++)
 	{
 		platformsSprite1.push_back(platformSprite_);
-	}
+	}*/
 
-	
-	for (int i = 0; i < platformsSprite1.size(); i++) {
+	/*for (int i = 0; i < platformsSprite1.size(); i++) {
 		platformsSprite1[i].setPosition(20.0f + (i * 40.0f), 200.0f);
-	}
+	}*/
 	b2BodyDef bodyDef1;
 	bodyDef1.type = b2_staticBody;
 	bodyDef1.position = pixel2meter(platform1);
@@ -49,13 +57,13 @@ void Platform::Init(b2World& world)
 	platformBody1_->CreateFixture(&fixtureDef1);
 	
 	//platform2
-	for (int i = 0; i < 4; i++)
+	/*for (int i = 0; i < 4; i++)
 	{
 		platformsSprite2.push_back(platformSprite_);
 	}
 	for (int i = 0; i < platformsSprite2.size(); i++) {
 		platformsSprite2[i].setPosition(600.0f + (i * 40.0f), 250.0f);
-	}
+	}*/
 	b2BodyDef bodyDef2;
 	bodyDef2.type = b2_staticBody;
 	bodyDef2.position = pixel2meter(platform2);
@@ -78,13 +86,13 @@ void Platform::Init(b2World& world)
 	platformBody2_->CreateFixture(&fixtureDef2);
 	
 	//platform3
-	for (int i = 0; i < 7; i++)
+	/*for (int i = 0; i < 7; i++)
 	{
 		platformsSprite3.push_back(platformSprite_);
 	}
 	for (int i = 0; i < platformsSprite3.size(); i++) {
 		platformsSprite3[i].setPosition(150.0f + (i * 40.0f), 400.0f);
-	}
+	}*/
 	
 	b2BodyDef bodyDef3;
 	bodyDef3.type = b2_staticBody;
@@ -110,25 +118,51 @@ void Platform::Init(b2World& world)
 }
 void Platform::DrawPlatform(sf::RenderWindow& window)
 {
+	if (!platformTexture_.loadFromFile("data/platformFull1.png"))
+	{
+		std::cerr << "[Error] Could not load hero texture\n";
+	}
+	platformSprite_.setTexture(platformTexture_);
 
+	platformSprite_.setPosition(20, 200);
 	
-	for (int i = 0; i < platformsSprite1.size(); i++)
+	window.draw(platformSprite_);
+	/*for (int i = 0; i < platformsSprite1.size(); i++)
 	{
 	
 		window.draw(platformsSprite1[i]);
 		
-	}
+	}*/
 
-	for (int i = 0; i < platformsSprite2.size(); i++)
+	if (!platformTexture_.loadFromFile("data/platformFull1.png"))
+	{
+		std::cerr << "[Error] Could not load texture\n";
+	}
+	platformSprite_.setTexture(platformTexture_);
+
+	platformSprite_.setPosition(600, 250);
+	window.draw(platformSprite_);
+	
+	/*for (int i = 0; i < platformsSprite2.size(); i++)
 	{
 		window.draw(platformsSprite2[i]);
 		
+	}*/
+
+	if (!platformTextureBig_.loadFromFile("data/big.png"))
+	{
+		std::cerr << "[Error] Could not load texture\n";
 	}
-	for (int i = 0; i < platformsSprite3.size(); i++)
+	platformSpriteBig_.setTexture(platformTextureBig_);
+
+	platformSpriteBig_.setPosition(150, 400);
+	window.draw(platformSpriteBig_);
+	
+	/*for (int i = 0; i < platformsSprite3.size(); i++)
 	{
 		window.draw(platformsSprite3[i]);
 		
-	}
+	}*/
 
 	boxPlatform2RectDebug_.setPosition(meter2pixel(platformBody2_->GetPosition()));
 	boxPlatform1RectDebug_.setPosition(meter2pixel(platformBody1_->GetPosition()));

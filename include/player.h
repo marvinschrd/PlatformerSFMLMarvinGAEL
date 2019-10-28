@@ -24,7 +24,7 @@ private:
 	
 	const pixel playerSpeed_ = 200.0f;//in pixels
 	const float movementFactor_ = 0.7f;
-	const meter jumpVelocity_ = -5.0f;//in meter
+	const meter jumpVelocity_ = -6.0f;//in meter
 	bool previousJumpButton_ = false;
 	int contactNmb_ = 0;
 };
