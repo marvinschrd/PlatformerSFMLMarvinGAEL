@@ -13,6 +13,7 @@ public:
 
 	void OnContactBegin();
 	void OnContactEnd();
+	int playerHealth_ = 3;
 private:
 	sf::Texture playerTexture_;
 	sf::Sprite playerSprite_;
@@ -20,7 +21,6 @@ private:
 	sf::Vector2f playerPosition_ = sf::Vector2f(50, 50);
 	b2Body* playerBody_ = nullptr;
 	const sf::Vector2f boxSize = sf::Vector2f(40, 70);
-
 	
 	const pixel playerSpeed_ = 200.0f;//in pixels
 	const float movementFactor_ = 0.7f;

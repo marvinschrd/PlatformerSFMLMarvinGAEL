@@ -22,6 +22,7 @@ void player::init(b2World& world)
 	playerSprite_.setOrigin(playerSize / 2.0f);
 	b2BodyDef bodyDef;
 
+	
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position = pixel2meter(playerPosition_);//
 	//bodyDef.position.Set(50, 50);
@@ -39,13 +40,12 @@ void player::init(b2World& world)
 	
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &shape;
-	fixtureDef.friction = 0.0f;
+	fixtureDef.friction = 2.0f;
 	fixtureDef.density = 1;
 	fixtureDef.userData = this;
 	playerBody_->CreateFixture(&fixtureDef);
 }
 
-//PAS FAIT PAR MOI
 
 void player::Update(float dt)
 {
@@ -93,6 +93,13 @@ void player::Update(float dt)
 	playerBody_->ApplyForce(b2Vec2(fx, fy), playerBody_->GetWorldCenter(), true);
 
 	previousJumpButton_ = jumpButton;
+
+	if(playerBody_->GetPosition().y>7)
+	{
+		playerBody_->SetTransform(b2Vec2(pixel2meter(70),pixel2meter(50) ), 0);
+		playerHealth_--;
+	}
+	
 }
 
 

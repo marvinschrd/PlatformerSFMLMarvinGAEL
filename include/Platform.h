@@ -9,14 +9,17 @@ public:
 	Platform();
 	void DrawPlatform(sf::RenderWindow& window);
 	void Init(b2World& world);
+	void update();
 private:
-	sf::Texture platformTexture_;
-	sf::Sprite platformSprite_;
+	sf::Texture platformTexture1_;
+	sf::Sprite platformSprite1_;
+	sf::Texture platformTexture2_;
+	sf::Sprite platformSprite2_;
 	sf::Texture platformTextureBig_;
 	sf::Sprite platformSpriteBig_;
-	std::vector<sf::Sprite> platformsSprite1;
+	/*std::vector<sf::Sprite> platformsSprite1;
 	std::vector<sf::Sprite> platformsSprite2;
-	std::vector<sf::Sprite> platformsSprite3;
+	std::vector<sf::Sprite> platformsSprite3;*/
 	b2Body* platformBody1_ = nullptr;
 	sf::Vector2f platform1 = sf::Vector2f(100, 225);
 	b2Body* platformBody2_ = nullptr;

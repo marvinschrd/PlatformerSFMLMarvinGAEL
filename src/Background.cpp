@@ -19,7 +19,7 @@ void Background::DrawBackground(sf::RenderWindow& window)
 	window.draw(backGroundSprite_);
 }
 
-void Background::DrawHeart(sf::RenderWindow& window)
+void Background::DrawHeart(sf::RenderWindow& window, int playerHealth)
 {
 	if (!heartTexture_.loadFromFile("data/heart.png"))
 	{
@@ -27,8 +27,20 @@ void Background::DrawHeart(sf::RenderWindow& window)
 	}
 	heartSprite_.setTexture(heartTexture_);
 
-	heartSprite_.setPosition(10.0f, 10);
-	window.draw(heartSprite_);
-	heartSprite_.setPosition(45, 10);
-	window.draw(heartSprite_);
+	if (playerHealth >= 1&&  playerHealth <=3)
+	{
+		heartSprite_.setPosition(10.0f, 10);
+		window.draw(heartSprite_);
+	}
+	if (playerHealth >= 2 && playerHealth <= 3)
+	{
+		heartSprite_.setPosition(45, 10);
+		window.draw(heartSprite_);
+	}
+	if(playerHealth ==3)
+	{
+
+		heartSprite_.setPosition(80, 10);
+		window.draw(heartSprite_);
+	}
 }

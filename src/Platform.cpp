@@ -1,8 +1,10 @@
-﻿#include "Platform.h"
+﻿#define _USE_MATH_DEFINES
+#include "Platform.h"
 #include "SFML/Graphics.hpp"
 #include "Box2D/Box2D.h"
 #include "globals.h"
 #include <iostream>
+#include <math.h>
 
 Platform::Platform() 
 {
@@ -64,8 +66,11 @@ void Platform::Init(b2World& world)
 	for (int i = 0; i < platformsSprite2.size(); i++) {
 		platformsSprite2[i].setPosition(600.0f + (i * 40.0f), 250.0f);
 	}*/
+
+	
+	
 	b2BodyDef bodyDef2;
-	bodyDef2.type = b2_staticBody;
+	bodyDef2.type = b2_kinematicBody;
 	bodyDef2.position = pixel2meter(platform2);
 	platformBody2_ = world.CreateBody(&bodyDef2);
 	
@@ -80,7 +85,7 @@ void Platform::Init(b2World& world)
 
 	b2FixtureDef fixtureDef2;
 	fixtureDef2.shape = &shape2;
-	fixtureDef2.friction = 0.0f;
+	fixtureDef2.friction = 5.0f;
 	fixtureDef2.density = 1;
 	fixtureDef2.userData = this;
 	platformBody2_->CreateFixture(&fixtureDef2);
@@ -116,17 +121,33 @@ void Platform::Init(b2World& world)
 	
 	
 }
+
+void Platform::update()
+{
+	//platformBody2_->SetLinearVelocity(b2Vec2(-1,0));
+	if (platformBody2_->GetPosition().x<=1 )
+	{
+		platformBody2_->SetLinearVelocity(b2Vec2(1, 0));
+	}
+	if (platformBody2_->GetPosition().x >= 6)
+	{
+		platformBody2_->SetLinearVelocity(b2Vec2(-1, 0));
+	}
+	//platformSprite2_.setRotation(platformBody2_->GetAngle()*(180/M_PI));
+	
+}
+
 void Platform::DrawPlatform(sf::RenderWindow& window)
 {
-	if (!platformTexture_.loadFromFile("data/platformFull1.png"))
+	if (!platformTexture1_.loadFromFile("data/platformFull1.png"))
 	{
 		std::cerr << "[Error] Could not load hero texture\n";
 	}
-	platformSprite_.setTexture(platformTexture_);
+	platformSprite1_.setTexture(platformTexture1_);
 
-	platformSprite_.setPosition(20, 200);
+	platformSprite1_.setPosition(20, 200);
 	
-	window.draw(platformSprite_);
+	window.draw(platformSprite1_);
 	/*for (int i = 0; i < platformsSprite1.size(); i++)
 	{
 	
@@ -134,14 +155,19 @@ void Platform::DrawPlatform(sf::RenderWindow& window)
 		
 	}*/
 
-	if (!platformTexture_.loadFromFile("data/platformFull1.png"))
+	if (!platformTexture2_.loadFromFile("data/platformFull1.png"))
 	{
 		std::cerr << "[Error] Could not load texture\n";
 	}
-	platformSprite_.setTexture(platformTexture_);
+	platformSprite2_.setTexture(platformTexture2_);
 
-	platformSprite_.setPosition(600, 250);
-	window.draw(platformSprite_);
+	const auto platform2Size = sf::Vector2f(platformSprite2_.getLocalBounds().width, platformSprite2_.getLocalBounds().height);
+	platformSprite2_.setOrigin(platform2Size / 2.0f);//lier l'origine du sprite avec l'objet
+	
+	platform2 = meter2pixel(platformBody2_->GetPosition());
+	platformSprite2_.setPosition(platform2);
+	//platformSprite2_.setOrigin(77, 20);
+	window.draw(platformSprite2_);
 	
 	/*for (int i = 0; i < platformsSprite2.size(); i++)
 	{
@@ -155,6 +181,9 @@ void Platform::DrawPlatform(sf::RenderWindow& window)
 	}
 	platformSpriteBig_.setTexture(platformTextureBig_);
 
+	/*const auto platformBigSize = sf::Vector2f(platformSpriteBig_.getLocalBounds().width, platformSpriteBig_.getLocalBounds().height);
+	platformSpriteBig_.setOrigin(platform2Size / 2.0f);*/
+	
 	platformSpriteBig_.setPosition(150, 400);
 	window.draw(platformSpriteBig_);
 	
@@ -168,8 +197,8 @@ void Platform::DrawPlatform(sf::RenderWindow& window)
 	boxPlatform1RectDebug_.setPosition(meter2pixel(platformBody1_->GetPosition()));
 	boxPlatform3RectDebug_.setPosition(meter2pixel(platformBody3_->GetPosition()));
 	/*window.draw(boxPlatform3RectDebug_);
-	window.draw(boxPlatform1RectDebug_);
-	window.draw(boxPlatform2RectDebug_);*/
+	window.draw(boxPlatform1RectDebug_);*/
+	window.draw(boxPlatform2RectDebug_);
 	
 }
 

@@ -37,12 +37,13 @@ void Engine::loop()
 				window.close();
 		}
 		playerCharacter_.Update(deltaTime.asSeconds());
+		platform_.update();
 		world.Step(deltaTime.asSeconds(), velocityIterations, positionIterations);
 		window.clear(sf::Color::Black);
 		// c'est ici qu'on dessine tout
 		// window.draw(...);
 		background_.DrawBackground(window);
-		background_.DrawHeart(window);
+		background_.DrawHeart(window, playerCharacter_.playerHealth_);
 		platform_.DrawPlatform(window);
 		playerCharacter_.DrawPlayer(window);
 		// fin de la frame courante, affichage de tout ce qu'on a dessiné
