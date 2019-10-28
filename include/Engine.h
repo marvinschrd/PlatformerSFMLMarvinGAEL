@@ -2,6 +2,7 @@
 #include "player.h"
 #include "Platform.h"
 #include "Background.h"
+#include "spike.h"
 
 class Engine;
 
@@ -30,6 +31,7 @@ private:
 	player playerCharacter_;
 	Background background_;
 	Platform platform_;
+	Spike spike_;
 	PlatformContactListener platformListener_;
 	
 };

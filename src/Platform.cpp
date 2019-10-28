@@ -114,7 +114,7 @@ void Platform::Init(b2World& world)
 
 	b2FixtureDef fixtureDef3;
 	fixtureDef3.shape = &shape3;
-	fixtureDef3.friction = 0.0f;
+	fixtureDef3.friction = 1.0f;
 	fixtureDef3.density = 1;
 	fixtureDef3.userData = this;
 	platformBody3_->CreateFixture(&fixtureDef3);
@@ -148,6 +148,8 @@ void Platform::DrawPlatform(sf::RenderWindow& window)
 	platformSprite1_.setPosition(20, 200);
 	
 	window.draw(platformSprite1_);
+
+	
 	/*for (int i = 0; i < platformsSprite1.size(); i++)
 	{
 	
@@ -186,6 +188,14 @@ void Platform::DrawPlatform(sf::RenderWindow& window)
 	
 	platformSpriteBig_.setPosition(150, 400);
 	window.draw(platformSpriteBig_);
+
+	if (!grassTexture_.loadFromFile("data/grassRock.png"))
+	{
+		std::cerr << "[Error] Could not load hero texture\n";
+	}
+	grassSprite_.setTexture(grassTexture_);
+	grassSprite_.setPosition(190, 375);
+	window.draw(grassSprite_);
 	
 	/*for (int i = 0; i < platformsSprite3.size(); i++)
 	{
@@ -198,7 +208,7 @@ void Platform::DrawPlatform(sf::RenderWindow& window)
 	boxPlatform3RectDebug_.setPosition(meter2pixel(platformBody3_->GetPosition()));
 	/*window.draw(boxPlatform3RectDebug_);
 	window.draw(boxPlatform1RectDebug_);*/
-	window.draw(boxPlatform2RectDebug_);
+	//window.draw(boxPlatform2RectDebug_);
 	
 }
 

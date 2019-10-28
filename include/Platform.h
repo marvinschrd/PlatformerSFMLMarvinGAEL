@@ -17,6 +17,8 @@ private:
 	sf::Sprite platformSprite2_;
 	sf::Texture platformTextureBig_;
 	sf::Sprite platformSpriteBig_;
+	sf::Texture grassTexture_;
+	sf::Sprite grassSprite_;
 	/*std::vector<sf::Sprite> platformsSprite1;
 	std::vector<sf::Sprite> platformsSprite2;
 	std::vector<sf::Sprite> platformsSprite3;*/

@@ -5,14 +5,14 @@
 #include "globals.h"
 
 
-player::player()// ouvre le fichier image qui represente le personnage
+player::player()  // ouvre le fichier image qui represente le personnage
 {
 	if (!playerTexture_.loadFromFile("data/idle.png"))
 	{
 		std::cerr << "[Error] Could not load hero texture\n";
 	}
 	playerSprite_.setTexture(playerTexture_);
-	
+	gameObjectType_ = GameObjectType::PLAYER_CHARACTER;
 }
 
 
@@ -40,7 +40,7 @@ void player::init(b2World& world)
 	
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &shape;
-	fixtureDef.friction = 2.0f;
+	fixtureDef.friction = 3.0f;
 	fixtureDef.density = 1;
 	fixtureDef.userData = this;
 	playerBody_->CreateFixture(&fixtureDef);
@@ -99,6 +99,10 @@ void player::Update(float dt)
 		playerBody_->SetTransform(b2Vec2(pixel2meter(70),pixel2meter(50) ), 0);
 		playerHealth_--;
 	}
+	if(playerBody_->GetPosition().x>=3)
+	{
+		setSpikeBlock = true;
+	}
 	
 }
 
@@ -109,7 +113,7 @@ void player::DrawPlayer(sf::RenderWindow& window)
 	playerSprite_.setPosition(playerPosition_);
 	boxRectDebug_.setPosition(meter2pixel(playerBody_->GetPosition()));
 	window.draw(playerSprite_);
-	//window.draw(boxRectDebug_);
+	window.draw(boxRectDebug_);
 }
 
 void player::OnContactBegin()

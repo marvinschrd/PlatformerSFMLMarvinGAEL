@@ -20,7 +20,8 @@ void Engine::loop()
 
 	b2World world(b2Vec2(0.0f, 9.81f));
 	world.SetContactListener(&platformListener_);
-	
+
+	spike_.init(world);
 	playerCharacter_.init(world);
 	platform_.Init(world);
 	
@@ -46,6 +47,7 @@ void Engine::loop()
 		background_.DrawHeart(window, playerCharacter_.playerHealth_);
 		platform_.DrawPlatform(window);
 		playerCharacter_.DrawPlayer(window);
+		spike_.DrawSpikeBlock(window, playerCharacter_.setSpikeBlock);
 		// fin de la frame courante, affichage de tout ce qu'on a dessiné
 		window.display();
 	}
@@ -55,7 +57,7 @@ void Engine::OnContactEnter(b2Fixture* c1, b2Fixture* c2)
 {
 	GameObject* g1 = (GameObject*)(c1->GetUserData());
 	GameObject* g2 = (GameObject*)(c2->GetUserData());
-	if (g1->GetGameObjectType() == GameObjectType::PLAYER_CHARACTER ||
+	if (g1->GetGameObjectType() == GameObjectType::PLAYER_CHARACTER &&
 		g2->GetGameObjectType() == GameObjectType::PLATFORM)
 	{
 		playerCharacter_.OnContactBegin();
@@ -66,7 +68,7 @@ void Engine::OnContactExit(b2Fixture* c1, b2Fixture* c2)
 {
 	GameObject* g1 = (GameObject*)(c1->GetUserData());
 	GameObject* g2 = (GameObject*)(c2->GetUserData());
-	if (g1->GetGameObjectType() == GameObjectType::PLAYER_CHARACTER ||
+	if (g1->GetGameObjectType() == GameObjectType::PLAYER_CHARACTER &&
 		g2->GetGameObjectType() == GameObjectType::PLATFORM)
 	{
 		playerCharacter_.OnContactEnd();

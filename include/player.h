@@ -3,7 +3,7 @@
 #include <Box2D/Box2D.h>
 #include "globals.h"
 
-class player
+class player : public GameObject
 {
 public:
 	player();
@@ -14,6 +14,7 @@ public:
 	void OnContactBegin();
 	void OnContactEnd();
 	int playerHealth_ = 3;
+	bool setSpikeBlock = false;
 private:
 	sf::Texture playerTexture_;
 	sf::Sprite playerSprite_;
