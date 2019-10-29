@@ -114,29 +114,6 @@ void Platform::Init(b2World& world)
 	fixtureDef3.userData = this;
 	platformBody3_->CreateFixture(&fixtureDef3);
 
-	///
-
-	b2BodyDef bodyDef4;
-	bodyDef4.type = b2_staticBody;
-	bodyDef4.position = pixel2meter(platform4);
-	platformBody4_ = world.CreateBody(&bodyDef4);
-	b2PolygonShape shape4;
-	shape4.SetAsBox(pixel2meter(boxSize4.x / 2.0f), pixel2meter(boxSize4.y / 2.0f));
-
-	boxPlatform4RectDebug_.setSize(boxSize4);
-	boxPlatform4RectDebug_.setOrigin(boxSize4 / 2.0f);
-	boxPlatform4RectDebug_.setFillColor(sf::Color(0, 255, 0, 120));
-	boxPlatform4RectDebug_.setOutlineColor(sf::Color::Yellow);
-	boxPlatform4RectDebug_.setOutlineThickness(2.0f);
-
-	b2FixtureDef fixtureDef4;
-	fixtureDef4.shape = &shape4;
-	fixtureDef4.friction = 0.0f;
-	fixtureDef4.density = 1;
-	fixtureDef4.userData = this;
-	platformBody4_->CreateFixture(&fixtureDef4);
-	
-	
 }
 void Platform::DrawPlatform(sf::RenderWindow& window)
 {
@@ -180,32 +157,6 @@ void Platform::DrawPlatform(sf::RenderWindow& window)
 	platformSpriteBig_.setPosition(150, 400);
 	window.draw(platformSpriteBig_);
 
-	if (!platformTexture_.loadFromFile("data/spike.png"))
-	{
-		std::cerr << "[Error] Could not load hero texture\n";
-	}
-	platformSprite_.setTexture(platformTexture_);
-
-	platformSprite_.setPosition(280, 370);
-	window.draw(platformSprite_);
-
-	if (!platformTexture_.loadFromFile("data/spike.png"))
-	{
-		std::cerr << "[Error] Could not load hero texture\n";
-	}
-	platformSprite_.setTexture(platformTexture_);
-
-	platformSprite_.setPosition(295, 370);
-	window.draw(platformSprite_);
-
-	if (!platformTexture_.loadFromFile("data/spike.png"))
-	{
-		std::cerr << "[Error] Could not load hero texture\n";
-	}
-	platformSprite_.setTexture(platformTexture_);
-
-	platformSprite_.setPosition(265, 370);
-	window.draw(platformSprite_);
 	
 	/*for (int i = 0; i < platformsSprite3.size(); i++)
 	{

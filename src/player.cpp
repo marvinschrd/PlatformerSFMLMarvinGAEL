@@ -113,3 +113,8 @@ void player::OnContactEnd()
 {
 	contactNmb_--;
 }
+
+void player::Win()
+{
+	contactWin_++;
+}

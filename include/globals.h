@@ -25,7 +25,9 @@ sf::Vector2f meter2pixel(b2Vec2 meters);
 enum class GameObjectType
 {
 	PLAYER_CHARACTER,
-	PLATFORM
+	PLATFORM,
+	TRAP,
+	WINOBJECT
 };
 
 class GameObject

@@ -13,6 +13,8 @@ public:
 
 	void OnContactBegin();
 	void OnContactEnd();
+
+	void Win();
 private:
 	sf::Texture playerTexture_;
 	sf::Sprite playerSprite_;
@@ -27,4 +29,5 @@ private:
 	const meter jumpVelocity_ = -6.0f;//in meter
 	bool previousJumpButton_ = false;
 	int contactNmb_ = 0;
+	int contactWin_ = 0;
 };
