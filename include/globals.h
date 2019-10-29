@@ -26,7 +26,8 @@ enum class GameObjectType
 {
 	PLAYER_CHARACTER,
 	PLATFORM,
-	SPIKE
+	SPIKE,
+	CHEST
 };
 
 class GameObject

@@ -24,6 +24,7 @@ void Engine::loop()
 	spike_.init(world);
 	playerCharacter_.init(world);
 	platform_.Init(world);
+	chest_.init(world);
 	
 	sf::Clock clock;
 	while (window.isOpen())
@@ -36,9 +37,10 @@ void Engine::loop()
 			// évènement "fermeture demandée" : on ferme la fenêtre
 			if (event.type == sf::Event::Closed)
 				window.close();
-			if(playerCharacter_.playerHealth_<=0)
+			if(playerCharacter_.playerHealth_<=0||playerCharacter_.chestContact_==true)
 			{
 				window.close();
+				
 			}
 		}
 		playerCharacter_.Update(deltaTime.asSeconds());
@@ -50,6 +52,7 @@ void Engine::loop()
 		background_.DrawBackground(window);
 		background_.DrawHeart(window, playerCharacter_.playerHealth_);
 		platform_.DrawPlatform(window);
+		chest_.drawChest(window);
 		playerCharacter_.DrawPlayer(window);
 		spike_.DrawSpikeBlock(window, playerCharacter_.setSpikeBlock);
 		// fin de la frame courante, affichage de tout ce qu'on a dessiné
@@ -74,6 +77,12 @@ void Engine::OnContactEnter(b2Fixture* c1, b2Fixture* c2)
 	{
 		playerCharacter_.OnSpikeContact();
 	}
+	if (g1->GetGameObjectType() == GameObjectType::PLAYER_CHARACTER &&
+		g2->GetGameObjectType() == GameObjectType::CHEST)
+	{
+		playerCharacter_.chestContact_ = true;
+	}
+	
 }
 
 void Engine::OnContactExit(b2Fixture* c1, b2Fixture* c2)

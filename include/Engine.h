@@ -3,6 +3,7 @@
 #include "Platform.h"
 #include "Background.h"
 #include "spike.h"
+#include "winningChest.h"
 
 class Engine;
 
@@ -32,6 +33,7 @@ private:
 	Background background_;
 	Platform platform_;
 	Spike spike_;
+	winningChest chest_;
 	PlatformContactListener platformListener_;
 	
 };

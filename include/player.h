@@ -16,6 +16,7 @@ public:
 	void OnSpikeContact();
 	int playerHealth_ = 3;
 	bool setSpikeBlock = false;
+	bool chestContact_ = false;
 private:
 	bool spikeContact = false;
 	sf::Texture playerTexture_;
