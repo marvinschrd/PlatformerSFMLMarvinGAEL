@@ -7,7 +7,7 @@
 
 Spike::Spike()
 {
-	gameObjectType_ = GameObjectType::PLATFORM;
+	gameObjectType_ = GameObjectType::SPIKE;
 }
 
 void Spike::init(b2World& world)

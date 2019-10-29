@@ -13,7 +13,7 @@ private:
 	sf::Texture spikeBlockTexture_;
 	sf::Sprite spikeBlockSprite_;
 	b2Body* spikeBlockBody_ = nullptr;
-	sf::Vector2f spikeBlockPosition_ = sf::Vector2f(350, -40);
+	sf::Vector2f spikeBlockPosition_ = sf::Vector2f(350, -45);
 	const sf::Vector2f boxSize = sf::Vector2f(100, 100);
 	sf::RectangleShape boxSpikeBlockRectDebug_;
 };

@@ -7,7 +7,7 @@
 
 player::player()  // ouvre le fichier image qui represente le personnage
 {
-	if (!playerTexture_.loadFromFile("data/idle.png"))
+	if (!playerTexture_.loadFromFile("data/cat.png"))
 	{
 		std::cerr << "[Error] Could not load hero texture\n";
 	}
@@ -57,16 +57,16 @@ void player::Update(float dt)
 		jump = jumpVelocity_;
 	}
 
-	if (!playerTexture_.loadFromFile("data/idle.png"))
+	/*if (!playerTexture_.loadFromFile("data/idle.png"))
 	{
 		std::cerr << "[Error] Could not load hero texture\n";
 	}
-	playerSprite_.setTexture(playerTexture_);
+	playerSprite_.setTexture(playerTexture_);*/
 	
 	float move = 0.0f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		if (!playerTexture_.loadFromFile("data/idle2.png"))
+		if (!playerTexture_.loadFromFile("data/cat2.png"))
 		{
 			std::cerr << "[Error] Could not load hero texture\n";
 		}
@@ -76,7 +76,7 @@ void player::Update(float dt)
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		if (!playerTexture_.loadFromFile("data/idle.png"))
+		if (!playerTexture_.loadFromFile("data/cat.png"))
 		{
 			std::cerr << "[Error] Could not load hero texture\n";
 		}
@@ -96,13 +96,19 @@ void player::Update(float dt)
 
 	if(playerBody_->GetPosition().y>7)
 	{
-		playerBody_->SetTransform(b2Vec2(pixel2meter(70),pixel2meter(50) ), 0);
+		playerBody_->SetTransform(b2Vec2(pixel2meter(170),pixel2meter(200) ), 0);
 		playerHealth_--;
 	}
 	if(playerBody_->GetPosition().x>=3)
 	{
 		setSpikeBlock = true;
 	}
+	if(spikeContact == true)
+	{
+		playerBody_->SetTransform(b2Vec2(pixel2meter(170), pixel2meter(200)), 0);
+		spikeContact = false;
+	}
+	
 	
 }
 
@@ -113,7 +119,7 @@ void player::DrawPlayer(sf::RenderWindow& window)
 	playerSprite_.setPosition(playerPosition_);
 	boxRectDebug_.setPosition(meter2pixel(playerBody_->GetPosition()));
 	window.draw(playerSprite_);
-	window.draw(boxRectDebug_);
+	//window.draw(boxRectDebug_);
 }
 
 void player::OnContactBegin()
@@ -123,4 +129,10 @@ void player::OnContactBegin()
 void player::OnContactEnd()
 {
 	contactNmb_--;
+}
+
+void player::OnSpikeContact()
+{
+	playerHealth_ --;
+	spikeContact = true;
 }

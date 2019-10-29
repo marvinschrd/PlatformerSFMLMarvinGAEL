@@ -13,7 +13,7 @@ Engine::Engine() : platformListener_(this)
 
 void Engine::loop()
 {
-	sf::RenderWindow window(sf::VideoMode(800, 501), "My window");
+	sf::RenderWindow window(sf::VideoMode(1000, 626), "My window");
 	window.setVerticalSyncEnabled(true);
 
 	
@@ -36,6 +36,10 @@ void Engine::loop()
 			// évènement "fermeture demandée" : on ferme la fenêtre
 			if (event.type == sf::Event::Closed)
 				window.close();
+			if(playerCharacter_.playerHealth_<=0)
+			{
+				window.close();
+			}
 		}
 		playerCharacter_.Update(deltaTime.asSeconds());
 		platform_.update();
@@ -53,14 +57,22 @@ void Engine::loop()
 	}
 }
 
+
 void Engine::OnContactEnter(b2Fixture* c1, b2Fixture* c2)
 {
 	GameObject* g1 = (GameObject*)(c1->GetUserData());
 	GameObject* g2 = (GameObject*)(c2->GetUserData());
+	GameObject* g3 = (GameObject*)(c2->GetUserData());
+	
 	if (g1->GetGameObjectType() == GameObjectType::PLAYER_CHARACTER &&
 		g2->GetGameObjectType() == GameObjectType::PLATFORM)
 	{
 		playerCharacter_.OnContactBegin();
+	}
+	if(g1->GetGameObjectType() == GameObjectType::SPIKE &&
+		g2->GetGameObjectType() == GameObjectType::PLAYER_CHARACTER)
+	{
+		playerCharacter_.OnSpikeContact();
 	}
 }
 
@@ -68,6 +80,8 @@ void Engine::OnContactExit(b2Fixture* c1, b2Fixture* c2)
 {
 	GameObject* g1 = (GameObject*)(c1->GetUserData());
 	GameObject* g2 = (GameObject*)(c2->GetUserData());
+	//GameObject* g3 = (GameObject*)(c2->GetUserData());
+	
 	if (g1->GetGameObjectType() == GameObjectType::PLAYER_CHARACTER &&
 		g2->GetGameObjectType() == GameObjectType::PLATFORM)
 	{
