@@ -13,7 +13,7 @@ Engine::Engine() : platformListener_(this)
 
 void Engine::loop()
 {
-	sf::RenderWindow window(sf::VideoMode(1000, 626), "Cat");
+	sf::RenderWindow window(sf::VideoMode(1000, 626), "Ninja cat adventure");
 	window.setVerticalSyncEnabled(true);
 
 	
